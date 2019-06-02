@@ -1,0 +1,51 @@
+<body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-9 col-md-7 col-lg-8 mx-auto" >
+          <div class="card card-signin my-5">
+            <div class="card-body">
+              <h5 class="card-title text-center">List Of Repos</h5>
+              <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="seeMyRepos()"><i class="fab fa-google mr-2"></i> Show My Repos</button>
+              <table class="table table-striped" *ngIf="isTrue">
+                  <thead>
+                  <tr>
+                    <th class="tec-ce">Your GIT Repos</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let repo of empl">
+                    <td>{{repo.id}}</td>
+                    <td>{{repo.name}}</td>
+                    <td>
+                      <a href="{{repo.url}}" target="_blank">{{repo.url}}</a>            
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+                <div *ngIf="isShow">
+                    <webcam [height]="500" [width]="700" [trigger]="triggerObservable" (imageCapture)="handleImage($event)" *ngIf="showWebcam" 
+                            [allowCameraSwitch]="allowCameraSwitch" [switchCamera]="nextWebcamObservable"
+                            [videoOptions]="videoOptions"
+                            [imageQuality]="1"
+                            (cameraSwitched)="cameraWasSwitched($event)"
+                            (initError)="handleInitError($event)">
+                    </webcam>
+                    <br/>
+                  
+                    <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="triggerSnapshot()">Take A Snapshot</button>
+                    <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="toggleWebcam()">Toggle Webcam</button>
+                    <br/>
+                    
+                    <div class="snapshot" *ngIf="webcamImage">
+                        <h2 class="tec-ce">Image Preview!</h2>
+                        <img [src]="webcamImage.imageAsDataUrl"/>
+                        <br/>
+                        <button class="btn btn-lg btn-google btn-block text-uppercase" type="submit" (click)="saveImage()">Save Image</button>
+                      </div>      
+                  </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
